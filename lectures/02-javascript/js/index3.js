@@ -46,6 +46,15 @@
 
     // attach click listeners when creating the component
     // putting code close to where a developer thinks it may live
+    // when an edit button is clicked, we want to hide all other edit forms. This means
+    // we need to notify all other chirp components that an edit button was clicked.
+    onEditButtonClickedListeners.push((chirpId) => {
+      if (chirpId !== chirp.id) {
+        newChirp.querySelector(".edit-chirp-form").classList.add("hidden");
+        newChirp.querySelector(".edit").classList.remove("hidden");
+        newChirp.querySelector(".chirp-content").classList.remove("hidden");
+      }
+    });
 
     // clicking on edit
     newChirp.querySelector(".edit").addEventListener("click", function () {
@@ -55,16 +64,6 @@
       newChirp.querySelector(".edit-chirp").value = chirp.content;
       newChirp.querySelector(".edit").classList.add("hidden");
       newChirp.querySelector(".chirp-content").classList.add("hidden");
-
-      // when an edit button is clicked, we want to hide all other edit forms. This means
-      // we need to notify all other chirp components that an edit button was clicked.
-      onEditButtonClickedListeners.push((chirpId) => {
-        if (chirpId !== chirp.id) {
-          newChirp.querySelector(".edit-chirp-form").classList.add("hidden");
-          newChirp.querySelector(".edit").classList.remove("hidden");
-          newChirp.querySelector(".chirp-content").classList.remove("hidden");
-        }
-      });
 
       onEditButtonClickedListeners.forEach((listener) => listener(chirp.id));
     });
