@@ -167,7 +167,7 @@ export class CourseworkItemComponent {
 export default class WorkPage {
   readonly courseworkList = injectContentFiles<CourseworkAttributes>(
     (contentFile) => {
-      return contentFile.filename.includes("/src/content/coursework");
+      return contentFile.filename.includes("src/content/coursework");
     },
   ).sort((a, b) => {
     if (a.attributes.pin && !b.attributes.pin) return -1;
