@@ -140,7 +140,9 @@ import { RouterLink } from "@angular/router";
           </div>
         }
 
-        <analog-markdown [content]="lecture.content"></analog-markdown>
+        @if (lecture.content) {
+          <analog-markdown [content]="lecture.content"></analog-markdown>
+        }
       }
     </div>
   `,

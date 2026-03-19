@@ -1,6 +1,7 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { RouterModule, RouterOutlet, RouterLinkActive } from "@angular/router";
 import { environment } from "../environments/environment";
+import { ThemeService } from "./services/theme.service";
 
 @Component({
   selector: "app-root",
@@ -14,16 +15,6 @@ import { environment } from "../environments/environment";
           <span class="course-sep">·</span>
           <span class="course-semester">{{ semester }}</span>
         </a>
-
-        <button
-          class="burger"
-          (click)="menuOpen.set(!menuOpen())"
-          [attr.aria-expanded]="menuOpen()"
-        >
-          <span class="burger-line" [class.open]="menuOpen()"></span>
-          <span class="burger-line" [class.open]="menuOpen()"></span>
-          <span class="burger-line" [class.open]="menuOpen()"></span>
-        </button>
 
         <ul class="nav-links desktop-links">
           @for (item of navItems; track item.path) {
@@ -44,6 +35,69 @@ import { environment } from "../environments/environment";
             </li>
           }
         </ul>
+
+        <button
+          class="theme-toggle"
+          (click)="themeService.toggle()"
+          [attr.aria-label]="
+            themeService.isDark()
+              ? 'Switch to light mode'
+              : 'Switch to dark mode'
+          "
+          [title]="
+            themeService.isDark()
+              ? 'Switch to light mode'
+              : 'Switch to dark mode'
+          "
+        >
+          @if (themeService.isDark()) {
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+          } @else {
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          }
+        </button>
+
+        <button
+          class="burger"
+          (click)="menuOpen.set(!menuOpen())"
+          [attr.aria-expanded]="menuOpen()"
+        >
+          <span class="burger-line" [class.open]="menuOpen()"></span>
+          <span class="burger-line" [class.open]="menuOpen()"></span>
+          <span class="burger-line" [class.open]="menuOpen()"></span>
+        </button>
       </div>
     </nav>
 
@@ -175,6 +229,35 @@ import { environment } from "../environments/environment";
         background: var(--surface);
       }
 
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        color: var(--text-muted);
+        cursor: pointer;
+        flex-shrink: 0;
+        transition:
+          color 0.15s,
+          background 0.15s,
+          border-color 0.15s;
+      }
+
+      .theme-toggle:hover {
+        color: var(--text);
+        background: var(--surface-hover);
+        border-color: var(--text-muted);
+      }
+
+      .theme-toggle:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
       .burger {
         display: none;
         flex-direction: column;
@@ -183,7 +266,6 @@ import { environment } from "../environments/environment";
         cursor: pointer;
         padding: 8px;
         border-radius: var(--radius);
-        margin-left: auto;
         border: none;
       }
 
@@ -223,9 +305,14 @@ import { environment } from "../environments/environment";
         gap: 0.1rem;
       }
 
+      .mobile-menu .nav-links li {
+        width: 100%;
+      }
+
       .mobile-menu .nav-link {
         padding: 0.5rem 0.75rem;
         font-size: 0.925rem;
+        width: 100%;
       }
 
       main {
@@ -257,6 +344,10 @@ import { environment } from "../environments/environment";
           display: none;
         }
 
+        .theme-toggle {
+          margin-left: auto;
+        }
+
         .burger {
           display: flex;
         }
@@ -265,6 +356,7 @@ import { environment } from "../environments/environment";
   ],
 })
 export class AppComponent {
+  readonly themeService = inject(ThemeService);
   menuOpen = signal(false);
 
   navItems = [

@@ -60,7 +60,6 @@ export const routeMeta: RouteMeta = getRouteMeta({
         color: var(--text-muted);
         font-size: 0.9375rem;
         line-height: 1.7;
-        max-width: 640px;
         margin: 0 0 1.25rem;
       }
 
