@@ -1,7 +1,7 @@
 ---
 title: Group Project - Alpha Version
-releaseDate: 2025-05-22
-dueDate: 2025-06-26T16:00:00-04:00
+releaseDate: 2026-05-21
+dueDate: 2026-06-25T16:00:00-04:00
 ---
 
 The project allows you to demonstrate that you have mastered full-stack development concepts learned from this course. As a team of 2-3, you will create a publicly available web application.

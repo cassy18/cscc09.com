@@ -1,7 +1,7 @@
 ---
 title: Group Project - Proposal
-releaseDate: 2025-05-22
-dueDate: 2025-06-06T16:00:00-04:00
+releaseDate: 2026-05-21
+dueDate: 2026-06-05T16:00:00-04:00
 ---
 
 The project allows you to demonstrate that you have mastered full-stack development concepts learned from this course. As a team of 2-3, you will create a publicly available web application.
@@ -21,7 +21,6 @@ For both Github and Gradescope, one team member should create the team, others s
 > Projects must fulfill the following minimum requirements:
 
 - The application must use a modern frontend framework such as Angular, or Vue 3
-
   - You are not allowed to create a Barebones React application ([why?](https://react.dev/learn/start-a-new-react-project))
   - Mobile app frameworks such as Expo / NativeScript is not allowed
   - Your frontend must be a Single Page Application (SPA)
