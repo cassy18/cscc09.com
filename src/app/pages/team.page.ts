@@ -17,79 +17,111 @@ export const routeMeta: RouteMeta = getRouteMeta({
       :host {
         display: flex;
         flex-direction: column;
-        text-align: center;
       }
 
-      p {
-        margin: 0 8px 0 0;
+      .member-name {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 0.2rem;
+      }
+
+      .member-title {
+        font-size: 0.8125rem;
+        color: var(--text-muted);
+      }
+
+      a.member-name {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      a.member-name:hover {
+        color: var(--accent);
       }
     `,
   ],
   template: `
-    <h3>{{ name }}</h3>
+    @if (website) {
+      <a class="member-name" [href]="website" target="_blank">{{ name }}</a>
+    } @else {
+      <span class="member-name">{{ name }}</span>
+    }
     @if (title) {
-      <p>{{ title }}</p>
+      <span class="member-title">{{ title }}</span>
     }
   `,
 })
 export class MemberComponent {
   @Input() name = "";
   @Input() title?: string;
+  @Input() website?: string;
 }
 
 @Component({
   standalone: true,
+  imports: [MemberComponent],
   styles: [
     `
-      section {
-        margin-bottom: 3em;
-        .staff-type {
-          font-size: 1.75rem;
-        }
+      .team-section {
+        margin-bottom: 2.5rem;
       }
 
-      ul {
+      .section-label {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .members-grid {
         list-style: none;
-        display: flex;
-        gap: 64px;
-        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1rem;
+      }
 
-        li {
-          width: calc(35% - 64px);
-        }
-
-        @media (max-width: 768px) {
-          li {
-            width: 100%;
-          }
-        }
+      .member-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1rem 1.125rem;
       }
     `,
   ],
-  template: ` <div class="container">
-    <header>
-      <h1>Team</h1>
-      <p>The team behind the course.</p>
-    </header>
-    @for (staffType of staff; track staffType) {
-      @if (staffType.members.length) {
-        <section>
-          <h1 class="staff-type">{{ staffType.name }}</h1>
-          <ul>
-            @for (member of staffType.members; track member) {
-              <li>
-                <app-member
-                  [name]="member.name"
-                  [title]="member.title"
-                ></app-member>
-              </li>
-            }
-          </ul>
-        </section>
+  template: `
+    <div class="container">
+      <header>
+        <h1>Team</h1>
+        <p>The people behind the course</p>
+      </header>
+
+      @for (staffType of staff; track staffType.name) {
+        @if (staffType.members.length) {
+          <div class="team-section">
+            <div class="section-label">{{ staffType.name }}</div>
+            <ul class="members-grid">
+              @for (member of staffType.members; track member.name) {
+                <li class="member-card">
+                  <app-member
+                    [name]="member.name"
+                    [title]="member.title"
+                    [website]="member.website"
+                  ></app-member>
+                </li>
+              }
+            </ul>
+          </div>
+        }
       }
-    }
-  </div>`,
-  imports: [MemberComponent],
+    </div>
+  `,
 })
 export default class TeamPageComponent {
   staff = environment.staff as { name: string; members: Instructor[] }[];

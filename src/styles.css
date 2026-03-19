@@ -1,112 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
 :root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-hover: #1c2128;
+  --border: #21262d;
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --accent: #58a6ff;
+  --accent-dim: rgba(88, 166, 255, 0.15);
+  --success: #3fb950;
+  --warning: #d29922;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
+  --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --bold: 600;
+  --radius: 6px;
+  --nav-height: 56px;
+
   font-size: 16px;
-  line-height: 24px;
+  line-height: 1.6;
   font-weight: 400;
-
-  --background-color: #1a202c;
-  --font-color: rgba(255, 255, 255, 0.92);
-  --font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-
-  --bold: 700;
-  --letterSpacings-wider: 0.05em;
-
-  --blue: #4299e1;
-
-  background-color: var(--background-color);
-  color: var(--font-color);
-  font-family: var(--font-family);
-}
-
-app-root {
-  flex-direction: column;
-  display: flex;
-  height: 100vh;
+  font-family: var(--sans);
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 *,
 *::before,
 *::after {
+  box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  box-sizing: border-box;
-}
-
-h1 {
-  font-size: 1.35rem;
-  margin: 1.5em 0;
 }
 
 body {
   margin: 0;
 }
 
-.container {
-  margin-top: 3em;
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.container header {
-  text-align: center;
-  margin-bottom: 2em;
-}
-
-.container header h1 {
-  font-size: 1.875rem;
-}
-
-.container header p {
-  color: #718096;
-}
-
-table {
-  width: 100%;
-  margin-bottom: 2em;
-  overflow-x: scroll;
-}
-
-@media (max-width: 768px) {
-  table {
-    display: block;
-  }
-}
-
-th {
-  font-weight: var(--bold);
-  text-transform: uppercase;
-  letter-spacing: var(--letterSpacings-wider);
-  text-align: start;
-  padding-inline-start: 1rem;
-  padding-inline-end: 1rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  line-height: 1rem;
-}
-
-tr {
-  font-variant-numeric: lining-nums tabular-nums;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td {
-  text-align: start;
-  padding-inline-start: 1rem;
-  padding-inline-end: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  font-size: 0.85rem;
-  line-height: 1rem;
-
-  border-bottom: 1px solid #2d3748;
-}
-
-a {
-  color: inherit;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
+/* ── Typography ─────────────────────────────────────── */
 
 h1,
 h2,
@@ -115,10 +50,155 @@ h4,
 h5,
 h6 {
   margin: 0;
+  line-height: 1.3;
+  font-weight: var(--bold);
+  color: var(--text);
 }
+
+h1 {
+  font-size: 1.75rem;
+}
+h2 {
+  font-size: 1.375rem;
+}
+h3 {
+  font-size: 1.125rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ── Page container ─────────────────────────────────── */
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.container header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.container header h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.container header p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── Tables ─────────────────────────────────────────── */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+th {
+  font-weight: var(--bold);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+tr {
+  border-bottom: 1px solid var(--border);
+}
+
+tr:last-child {
+  border-bottom: none;
+}
+
+td {
+  text-align: left;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* ── Code ───────────────────────────────────────────── */
+
+code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+  color: var(--accent);
+}
+
+pre {
+  font-family: var(--mono);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* ── Blockquote ─────────────────────────────────────── */
+
+blockquote {
+  margin: 1rem 0;
+  border-left: 3px solid var(--accent);
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: var(--text-muted);
+}
+
+/* ── HR ─────────────────────────────────────────────── */
+
+hr {
+  height: 1px;
+  background: var(--border);
+  border: none;
+  margin: 2rem 0;
+}
+
+/* ── Print ──────────────────────────────────────────── */
 
 @media print {
   body {
+    background: white;
+    color: black;
     margin: 2em 1em;
   }
 
@@ -128,16 +208,42 @@ h6 {
 
   * {
     color: black !important;
+    background: white !important;
   }
 }
 
-blockquote {
-  margin: 0;
-  border-left: 2px solid white;
-  padding-left: 1em;
+/* ── Markdown content ───────────────────────────────── */
+
+analog-markdown h2 {
+  font-size: 1.25rem;
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
 }
 
-hr {
-  height: 1px;
-  background: currentColor;
+analog-markdown h3 {
+  font-size: 1rem;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--text);
+}
+
+analog-markdown ul,
+analog-markdown ol {
+  padding-left: 1.5rem;
+  margin: 0 0 1rem;
+}
+
+analog-markdown li {
+  margin-bottom: 0.25rem;
+}
+
+analog-markdown p {
+  color: var(--text);
+  line-height: 1.7;
+}
+
+analog-markdown strong {
+  color: var(--text);
+  font-weight: var(--bold);
 }

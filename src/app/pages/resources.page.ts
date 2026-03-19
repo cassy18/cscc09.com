@@ -14,34 +14,15 @@ export const routeMeta: RouteMeta = getRouteMeta({
 @Component({
   standalone: true,
   imports: [MarkdownComponent, AsyncPipe],
-  styles: [
-    `
-      .container {
-        margin-top: 3em;
-      }
-
-      .hero {
-        text-align: center;
-      }
-
-      h1 {
-        font-size: 30px;
-      }
-
-      p {
-        color: #718096;
-      }
-    `,
-  ],
   template: `
     <div class="container">
-      <div class="hero">
+      <header>
         <h1>Resources</h1>
         <p>
-          Interesting resources that might be useful to you in web development.
-          Feel free to make a PR to add to this list!
+          Curated web development links. Feel free to open a PR to add to this
+          list.
         </p>
-      </div>
+      </header>
       @if (post$ | async; as post) {
         <analog-markdown [content]="post.content"></analog-markdown>
       }

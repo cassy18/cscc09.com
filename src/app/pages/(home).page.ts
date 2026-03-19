@@ -18,63 +18,160 @@ export const routeMeta: RouteMeta = getRouteMeta({
   styles: [
     `
       .hero {
+        padding: 3rem 0 2.5rem;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 2.5rem;
+      }
+
+      .hero-top {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        text-align: center;
-        margin-bottom: 3em;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
       }
 
       .logo {
-        width: 300px;
+        width: 56px;
+        height: auto;
+        opacity: 0.9;
+        flex-shrink: 0;
       }
 
-      .description {
-        color: #718096;
-      }
-
-      h1 {
-        font-size: 2em;
+      .hero-title h1 {
+        font-size: 2rem;
+        font-weight: 600;
         line-height: 1.2;
-        color: transparent;
-        background-image: linear-gradient(to right, #b4cded, #4299e1);
-        background-clip: text;
-        -webkit-background-clip: text;
+        margin-bottom: 0.25rem;
+      }
+
+      .course-code-display {
+        font-family: var(--mono);
+        color: var(--accent);
+      }
+
+      .hero-subtitle {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        font-family: var(--mono);
+        letter-spacing: 0.02em;
+      }
+
+      .hero-description {
+        color: var(--text-muted);
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        max-width: 640px;
+        margin: 0 0 1.25rem;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        font-size: 0.875rem;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--text-muted);
+      }
+
+      .meta-label {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+      }
+
+      .meta-value {
+        color: var(--text);
+      }
+
+      .meta-value a {
+        color: var(--text);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .meta-value a:hover {
+        color: var(--accent);
+      }
+
+      @media (max-width: 600px) {
+        .hero-top {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .hero-title h1 {
+          font-size: 1.5rem;
+        }
       }
     `,
   ],
-  template: `<div class="hero">
-      <img
-        width="300"
-        height="154"
-        class="logo noprint"
-        src="utsc-logo.svg"
-        alt="UTSC Logo"
-      />
-      <h1>
-        <span class="code">{{ courseCode }}</span> - {{ courseTitle }}
-      </h1>
-      <p class="description">{{ description }}</p>
-      <p>
-        Instructors:
-        @for (instructor of instructors; track instructor; let last = $last) {
-          <a target="_blank" [href]="instructor.website">{{
-            instructor.name
-          }}</a>
-          @if (!last) {
-            <span>, </span>
-          }
-        }
-      </p>
+  template: `
+    <div class="container">
+      <div class="hero">
+        <div class="hero-top">
+          <img
+            width="56"
+            height="29"
+            class="logo noprint"
+            src="utsc-logo.svg"
+            alt="UTSC Logo"
+          />
+          <div class="hero-title">
+            <h1>
+              <span class="course-code-display">{{ courseCode }}</span> —
+              {{ courseTitle }}
+            </h1>
+            <div class="hero-subtitle">
+              {{ semester }} &middot; University of Toronto Scarborough
+            </div>
+          </div>
+        </div>
+
+        <p class="hero-description">{{ description }}</p>
+
+        <div class="hero-meta">
+          <div class="meta-item">
+            <span class="meta-label">Instructor</span>
+            <span class="meta-value">
+              @for (
+                instructor of instructors;
+                track instructor;
+                let last = $last
+              ) {
+                <a target="_blank" [href]="instructor.website">{{
+                  instructor.name
+                }}</a>
+                @if (!last) {
+                  <span>, </span>
+                }
+              }
+            </span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Semester</span>
+            <span class="meta-value">{{ semester }}</span>
+          </div>
+        </div>
+      </div>
+
+      @if (post$ | async; as post) {
+        <analog-markdown [content]="post.content"></analog-markdown>
+      }
     </div>
-    @if (post$ | async; as post) {
-      <analog-markdown [content]="post.content"></analog-markdown>
-    }`,
+  `,
 })
 export default class HomePage {
   courseCode = environment.courseCode;
   courseTitle = environment.courseTitle;
+  semester = environment.semester;
   description = environment.description;
   instructors: Instructor[] = environment.staff.find(
     (staffType) => staffType.name === "Instructors",

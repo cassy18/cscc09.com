@@ -18,63 +18,89 @@ export const routeMeta: RouteMeta = getRouteMeta({
   selector: "app-lecture-item",
   styles: [
     `
-      .lecture-item {
+      a.lecture-item {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 2em 0;
-        border-bottom: 1px solid rgba(226, 232, 240, 0.16);
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1.25rem 1rem;
+        border-radius: var(--radius);
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid transparent;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+        margin-bottom: 0.25rem;
+      }
+
+      a.lecture-item:hover {
+        background: var(--surface);
+        border-color: var(--border);
         text-decoration: none;
       }
 
-      .lecture-item:hover {
-        background-color: rgba(226, 232, 240, 0.16);
-        cursor: pointer;
-      }
-
-      .lecture-number {
-        font-size: 2em;
-        font-weight: bold;
-        flex: 1;
+      .week-badge {
+        flex-shrink: 0;
+        width: 2.5rem;
+        height: 2.5rem;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        font-family: var(--mono);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        margin-top: 0.1rem;
       }
 
-      .lecture-details {
-        flex: 8;
-        padding: 0 1em;
+      .lecture-item:hover .week-badge {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .lecture-body {
+        flex: 1;
+        min-width: 0;
       }
 
       .lecture-title {
-        font-size: 1.5em;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 0.3rem;
+        line-height: 1.4;
       }
 
       .lecture-date {
-        font-size: 13px;
-        background-color: rgba(226, 232, 240, 0.16);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 3em;
         display: inline-block;
-        margin: 0.5em 0;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        margin-bottom: 0.4rem;
+      }
+
+      .lecture-description {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        line-height: 1.5;
       }
     `,
   ],
   template: `
     @if (lecture) {
       <a [routerLink]="'/lectures/' + slug" class="lecture-item">
-        <div class="lecture-number">
-          <span>{{ lecture.week }}</span>
-        </div>
-        <div class="lecture-details">
+        <div class="week-badge">{{ lecture.week }}</div>
+        <div class="lecture-body">
           <div class="lecture-title">{{ lecture.title }}</div>
           <div class="lecture-date">
             Week of {{ getDateString(lecture.date) }}
           </div>
-          <div class="lecture-description">
-            {{ lecture.description }}
-          </div>
+          <div class="lecture-description">{{ lecture.description }}</div>
         </div>
       </a>
     }
@@ -96,19 +122,13 @@ export class LectureItemComponent {
 @Component({
   standalone: true,
   imports: [LectureItemComponent],
-  styles: [
-    `
-      .lecture-container {
-        margin-bottom: 1em;
-      }
-    `,
-  ],
   template: `
     <div class="container">
       <header>
         <h1>Schedule</h1>
+        <p>Lecture schedule and topics for the semester</p>
       </header>
-      <div class="lecture-container">
+      <div>
         @for (lecture of lectures; track lecture) {
           <app-lecture-item
             [slug]="lecture.slug"

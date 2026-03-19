@@ -18,42 +18,88 @@ export const routeMeta: RouteMeta = getRouteMeta({
   selector: "app-coursework-item",
   styles: [
     `
-      .work-item {
+      a.work-item {
         display: flex;
-        flex-direction: row;
+        align-items: center;
         justify-content: space-between;
-        padding: 2em 0;
-        border-bottom: 1px solid rgba(226, 232, 240, 0.16);
+        gap: 1rem;
+        padding: 1rem 1rem;
+        border-radius: var(--radius);
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid transparent;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
+        margin-bottom: 0.25rem;
+      }
+
+      a.work-item:hover:not(.disabled) {
+        background: var(--surface);
+        border-color: var(--border);
         text-decoration: none;
       }
 
-      .work-item:hover {
-        background-color: rgba(226, 232, 240, 0.16);
-        cursor: pointer;
+      a.work-item.disabled {
+        cursor: default;
+        opacity: 0.45;
+        pointer-events: none;
       }
 
-      .work-item.disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
+      .work-left {
+        display: flex;
+        align-items: center;
+        gap: 0.875rem;
+        min-width: 0;
       }
 
-      .work-details {
-        flex: 8;
-        padding: 0 1em;
+      .work-indicator {
+        flex-shrink: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border);
+        transition: background 0.15s;
+      }
+
+      a.work-item:not(.disabled) .work-indicator {
+        background: var(--success);
       }
 
       .work-title {
-        font-size: 1.5em;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        color: var(--text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
-      .work-date {
-        font-size: 13px;
-        background-color: rgba(226, 232, 240, 0.16);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 3em;
-        display: inline-block;
-        margin: 0.5em 0;
+      .work-right {
+        flex-shrink: 0;
+      }
+
+      .work-due {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+
+      .work-coming-soon {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+      }
+
+      @media (max-width: 500px) {
+        a.work-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.4rem;
+        }
       }
     `,
   ],
@@ -62,17 +108,19 @@ export const routeMeta: RouteMeta = getRouteMeta({
       <a
         [routerLink]="isReleased() ? '/work/' + work.slug : null"
         class="work-item"
-        [class]="{ disabled: !isReleased() }"
+        [class.disabled]="!isReleased()"
       >
-        <div class="work-details">
-          <div class="work-title">{{ work.attributes.title }}</div>
+        <div class="work-left">
+          <span class="work-indicator"></span>
+          <span class="work-title">{{ work.attributes.title }}</span>
+        </div>
+        <div class="work-right">
           @if (isReleased()) {
-            <div class="work-date">
-              Due on {{ getDateString(work.attributes.dueDate) }}
-            </div>
-          }
-          @if (!isReleased()) {
-            <div class="work-date">Coming Soon</div>
+            <span class="work-due"
+              >Due {{ getDateString(work.attributes.dueDate) }}</span
+            >
+          } @else {
+            <span class="work-coming-soon">Coming soon</span>
           }
         </div>
       </a>
@@ -84,15 +132,13 @@ export class CourseworkItemComponent {
 
   getDateString(date: Date) {
     return new Date(date).toLocaleString("en-US", {
-      month: "long",
+      month: "short",
       day: "numeric",
     });
   }
 
   isReleased() {
-    if (!this.work) {
-      return false;
-    }
+    if (!this.work) return false;
     const date = new Date(this.work.attributes.releaseDate);
     if (date) {
       return date.getTime() <= Date.now();
@@ -104,45 +150,30 @@ export class CourseworkItemComponent {
 @Component({
   standalone: true,
   imports: [CourseworkItemComponent],
-  styles: [
-    `
-      .container {
-        margin: 3em 0;
-      }
-
-      h1 {
-        font-size: 30px;
-        text-align: center;
-        margin-bottom: 2em;
-      }
-    `,
-  ],
   template: `
     <div class="container">
-      <h1>Coursework</h1>
-      @for (coursework of courseworkList; track coursework) {
-        <app-coursework-item [work]="coursework"></app-coursework-item>
-      }
+      <header>
+        <h1>Coursework</h1>
+        <p>Assignments, labs, and project deliverables</p>
+      </header>
+      <div>
+        @for (coursework of courseworkList; track coursework) {
+          <app-coursework-item [work]="coursework"></app-coursework-item>
+        }
+      </div>
     </div>
   `,
 })
 export default class WorkPage {
   readonly courseworkList = injectContentFiles<CourseworkAttributes>(
     (contentFile) => {
-      const isCoursework = contentFile.filename.includes(
-        "/src/content/coursework",
-      );
-      return isCoursework;
+      return contentFile.filename.includes("/src/content/coursework");
     },
   ).sort((a, b) => {
+    if (a.attributes.pin && !b.attributes.pin) return -1;
+    if (!a.attributes.pin && b.attributes.pin) return 1;
     const aDate = new Date(a.attributes.dueDate);
     const bDate = new Date(b.attributes.dueDate);
-    // if attributes.pin is true, sort it to the top
-    if (a.attributes.pin && !b.attributes.pin) {
-      return -1;
-    } else if (!a.attributes.pin && b.attributes.pin) {
-      return 1;
-    }
     return aDate.getTime() - bDate.getTime();
   });
 }

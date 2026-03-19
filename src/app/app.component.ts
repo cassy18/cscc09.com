@@ -1,50 +1,77 @@
-import { Component } from "@angular/core";
-import { RouterModule, RouterOutlet } from "@angular/router";
+import { Component, signal } from "@angular/core";
+import { RouterModule, RouterOutlet, RouterLinkActive } from "@angular/router";
 import { environment } from "../environments/environment";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [RouterOutlet, RouterModule],
+  imports: [RouterOutlet, RouterModule, RouterLinkActive],
   template: `
     <nav class="noprint">
-      <div class="burger">
-        <button (click)="collapse.classList.toggle('hidden')">
-          <div class="burger-line"></div>
-          <div class="burger-line"></div>
-          <div class="burger-line"></div>
+      <div class="nav-inner">
+        <a class="nav-brand" routerLink="/">
+          <span class="course-code">{{ courseCode }}</span>
+          <span class="course-sep">·</span>
+          <span class="course-semester">{{ semester }}</span>
+        </a>
+
+        <button
+          class="burger"
+          (click)="menuOpen.set(!menuOpen())"
+          [attr.aria-expanded]="menuOpen()"
+        >
+          <span class="burger-line" [class.open]="menuOpen()"></span>
+          <span class="burger-line" [class.open]="menuOpen()"></span>
+          <span class="burger-line" [class.open]="menuOpen()"></span>
         </button>
-      </div>
 
-      <ul class="links">
-        <li>
-          <span class="course">{{ courseCode }}</span> {{ semester }}
-        </li>
-
-        @for (item of navItems; track item) {
-          <li>
-            @if (item.path.startsWith("http")) {
-              <a class="nav-link" href="{{ item.path }}" target="_blank">{{
-                item.name
-              }}</a>
-            } @else {
-              <a class="nav-link" [routerLink]="item.path">{{ item.name }}</a>
-            }
-          </li>
-        }
-      </ul>
-    </nav>
-
-    <div>
-      <div class="collapse hidden" #collapse>
-        <ul class="links">
-          @for (item of navItems; track item) {
+        <ul class="nav-links desktop-links">
+          @for (item of navItems; track item.path) {
             <li>
-              <a class="nav-link" [routerLink]="item.path">{{ item.name }}</a>
+              @if (item.path.startsWith("http")) {
+                <a class="nav-link" href="{{ item.path }}" target="_blank">{{
+                  item.name
+                }}</a>
+              } @else {
+                <a
+                  class="nav-link"
+                  [routerLink]="item.path"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+                  >{{ item.name }}</a
+                >
+              }
             </li>
           }
         </ul>
       </div>
+    </nav>
+
+    <div class="mobile-menu noprint" [class.open]="menuOpen()">
+      <ul class="nav-links">
+        @for (item of navItems; track item.path) {
+          <li>
+            @if (item.path.startsWith("http")) {
+              <a
+                class="nav-link"
+                href="{{ item.path }}"
+                target="_blank"
+                (click)="menuOpen.set(false)"
+                >{{ item.name }}</a
+              >
+            } @else {
+              <a
+                class="nav-link"
+                [routerLink]="item.path"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+                (click)="menuOpen.set(false)"
+                >{{ item.name }}</a
+              >
+            }
+          </li>
+        }
+      </ul>
     </div>
 
     <main>
@@ -52,169 +79,201 @@ import { environment } from "../environments/environment";
     </main>
 
     <footer class="noprint">
-      <div class="footer-line">
-        <p>
-          © 2025 Cho Yin Yong. Made with
-          <a href="https://analogjs.org">Analog</a>.
-        </p>
-      </div>
+      <p>
+        © 2026 Cho Yin Yong &mdash; Made with
+        <a href="https://analogjs.org" target="_blank">Analog</a> &mdash;
+        Deployed with
+        <a href="https://cite-met.com" target="_blank">cite-met.com</a>
+      </p>
     </footer>
   `,
   styles: [
     `
-      .burger {
+      :host {
         display: flex;
-        justify-content: center;
-
-        @media screen and (min-width: 48em) {
-          display: none;
-          flex: auto;
-        }
-
-        button {
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-          background: transparent;
-          transition-property: box-shadow;
-          transition-duration: 150ms;
-          transition-timing-function: cubic-bezier(0, 0, 0.4, 1);
-          align-self: center;
-          margin: 8px;
-          padding: 8px;
-          cursor: pointer;
-
-          &:focus {
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
-          }
-        }
-      }
-
-      .burger-line {
-        width: 30px;
-        height: 3px;
-        background-color: #e2e8f0;
-      }
-
-      footer {
-        padding: 10px;
-        background-color: rgb(23, 25, 35);
-        display: flex;
-        justify-content: center;
-        margin-top: auto;
-      }
-
-      .course {
-        color: var(--blue);
-        font-weight: var(--bold);
-      }
-
-      main {
-        width: 85%;
-        margin: 0 auto;
+        flex-direction: column;
+        min-height: 100vh;
       }
 
       nav {
-        display: flex;
-        width: 100%;
-        border-bottom: 1px solid #171923;
-
-        ul li:not(:first-child) {
-          @media screen and (max-width: 767px) {
-            display: none !important;
-          }
-        }
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        height: var(--nav-height);
       }
 
-      .collapse {
-        opacity: 1;
+      .nav-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
         height: 100%;
-        max-height: 260px;
-        transition:
-          max-height 0.3s linear,
-          opacity 0.5s linear;
-        overflow: hidden;
-
-        &.hidden {
-          opacity: 0;
-          max-height: 0;
-        }
-
-        .links {
-          flex-direction: column;
-          align-items: start;
-          height: 100%;
-        }
-      }
-
-      .links {
-        list-style: none;
         display: flex;
-        gap: 16px;
-        height: 60px;
-        padding: 16px;
         align-items: center;
+        gap: 2rem;
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        flex-shrink: 0;
+      }
+
+      .course-code {
+        font-family: var(--mono);
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--accent);
+        letter-spacing: 0.02em;
+      }
+
+      .course-sep {
+        color: var(--border);
+        font-size: 1.1rem;
+      }
+
+      .course-semester {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      .nav-links {
+        list-style: none;
         margin: 0;
-      }
-
-      @media (max-width: 767px) {
-        main {
-          max-width: 90%;
-        }
-      }
-
-      @media (min-width: 768px) {
-        .collapse {
-          display: none;
-        }
+        padding: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-left: auto;
       }
 
       .nav-link {
-        transition-property: box-shadow;
-        transition-duration: 150ms;
-        transition-timing-function: cubic-bezier(0, 0, 0.4, 1);
-        cursor: pointer;
-        text-decoration: none;
-        outline: transparent solid 2px;
-        outline-offset: 2px;
-        color: #e2e8f0;
-        padding: 0.5rem;
+        display: block;
+        padding: 0.35rem 0.7rem;
         font-size: 0.875rem;
         font-weight: 500;
+        color: var(--text-muted);
+        text-decoration: none;
+        border-radius: var(--radius);
+        transition:
+          color 0.15s,
+          background 0.15s;
       }
 
-      a:focus {
-        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+      .nav-link:hover {
+        color: var(--text);
+        background: var(--surface-hover);
+        text-decoration: none;
+      }
+
+      .nav-link.active {
+        color: var(--text);
+        background: var(--surface);
+      }
+
+      .burger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: transparent;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: var(--radius);
+        margin-left: auto;
+        border: none;
+      }
+
+      .burger:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .burger-line {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: var(--text-muted);
+        border-radius: 1px;
+        transition: background 0.15s;
+      }
+
+      .burger:hover .burger-line {
+        background: var(--text);
+      }
+
+      .mobile-menu {
+        display: none;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 0.75rem 1.5rem 1rem;
+      }
+
+      .mobile-menu.open {
+        display: block;
+      }
+
+      .mobile-menu .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0;
+        gap: 0.1rem;
+      }
+
+      .mobile-menu .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.925rem;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      footer {
+        padding: 1.25rem 1.5rem;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+
+      footer p {
+        margin: 0;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      footer a {
+        color: var(--text-muted);
+      }
+
+      footer a:hover {
+        color: var(--accent);
+      }
+
+      @media (max-width: 767px) {
+        .desktop-links {
+          display: none;
+        }
+
+        .burger {
+          display: flex;
+        }
       }
     `,
   ],
 })
 export class AppComponent {
+  menuOpen = signal(false);
+
   navItems = [
-    {
-      name: "Home",
-      path: "/",
-    },
-    {
-      name: "Lectures",
-      path: "/lectures",
-    },
-    {
-      name: "Coursework",
-      path: "/work",
-    },
-    {
-      name: "Resources",
-      path: "/resources",
-    },
-    {
-      name: "Team",
-      path: "/team",
-    },
-    {
-      name: "Feedback",
-      path: "https://forms.gle/mpBh4MbNygwrAapr5",
-    },
+    { name: "Home", path: "/", exact: true },
+    { name: "Schedule", path: "/lectures" },
+    { name: "Coursework", path: "/work" },
+    { name: "Resources", path: "/resources" },
+    { name: "Team", path: "/team" },
+    { name: "Feedback", path: "https://forms.gle/mpBh4MbNygwrAapr5" },
   ];
 
   courseCode = environment.courseCode;

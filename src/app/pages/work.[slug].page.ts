@@ -8,27 +8,90 @@ import { CourseworkAttributes } from "../interfaces/file-attributes";
 import { AsyncPipe, DatePipe } from "@angular/common";
 import { Meta, Title } from "@angular/platform-browser";
 import { getMeta } from "../meta/route-meta";
+import { RouterLink } from "@angular/router";
 
 @Component({
   standalone: true,
-  imports: [MarkdownComponent, AsyncPipe, DatePipe],
+  imports: [MarkdownComponent, AsyncPipe, DatePipe, RouterLink],
   styles: [
     `
-      .container {
-        margin-top: 3em;
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        font-size: 0.8125rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        margin-bottom: 1.75rem;
+        transition: color 0.15s;
       }
 
-      h1 {
-        font-size: 30px;
+      .back-link:hover {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .work-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .work-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .work-description {
+        color: var(--text-muted);
+        font-size: 0.9375rem;
+        margin: 0 0 0.875rem;
+      }
+
+      .work-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .due-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--warning);
+        background: rgba(210, 153, 34, 0.1);
+        border: 1px solid rgba(210, 153, 34, 0.25);
+        border-radius: 4px;
+        padding: 0.25rem 0.6rem;
       }
     `,
   ],
   template: `
     <div class="container">
       @if (handout) {
-        <h1>{{ handout.attributes.title }}</h1>
-        <p>{{ handout.attributes.description }}</p>
-        <p>Due Date: {{ handout.attributes.dueDate | date: "medium" }}</p>
+        <a routerLink="/work" class="back-link"> <span>←</span> Coursework </a>
+
+        <div class="work-header">
+          <h1 class="work-title">{{ handout.attributes.title }}</h1>
+          @if (handout.attributes.description) {
+            <p class="work-description">{{ handout.attributes.description }}</p>
+          }
+          <div class="work-meta">
+            @if (handout.attributes.dueDate) {
+              <span class="due-badge">
+                Due
+                {{ handout.attributes.dueDate | date: "MMM d, y 'at' h:mm a" }}
+              </span>
+            }
+          </div>
+        </div>
+
         <analog-markdown [content]="handout.content"></analog-markdown>
       }
     </div>
