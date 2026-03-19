@@ -1,6 +1,9 @@
 import "zone.js/node";
 import { enableProdMode } from "@angular/core";
-import { bootstrapApplication } from "@angular/platform-browser";
+import {
+  bootstrapApplication,
+  BootstrapContext,
+} from "@angular/platform-browser";
 import { renderApplication } from "@angular/platform-server";
 
 import { config } from "./app/app.config.server";
@@ -10,8 +13,8 @@ if (import.meta.env.PROD) {
   enableProdMode();
 }
 
-export function bootstrap() {
-  return bootstrapApplication(AppComponent, config);
+export function bootstrap(context: BootstrapContext) {
+  return bootstrapApplication(AppComponent, config, context);
 }
 
 export default async function render(url: string, document: string) {
