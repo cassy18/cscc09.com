@@ -122,7 +122,7 @@ export const routeMeta: RouteMeta = getRouteMeta({
             height="29"
             class="logo noprint"
             [src]="
-              themeService.isDark() ? 'utsc-logo-dark.svg' : 'utsc-logo.svg'
+              themeService.isDark() ? 'utsc-logo.svg' : 'utsc-logo-dark.svg'
             "
             alt="UTSC Logo"
           />
