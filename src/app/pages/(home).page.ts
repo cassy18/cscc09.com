@@ -1,6 +1,7 @@
 import { MarkdownComponent, injectContent } from "@analogjs/content";
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { AsyncPipe } from "@angular/common";
+import { ThemeService } from "../services/theme.service";
 import { RouteMeta } from "@analogjs/router";
 import { getRouteMeta } from "../meta/route-meta";
 import { environment } from "../../environments/environment";
@@ -120,7 +121,7 @@ export const routeMeta: RouteMeta = getRouteMeta({
             width="56"
             height="29"
             class="logo noprint"
-            src="utsc-logo.svg"
+            [src]="themeService.isDark() ? 'utsc-logo-dark.svg' : 'utsc-logo.svg'"
             alt="UTSC Logo"
           />
           <div class="hero-title">
@@ -168,6 +169,7 @@ export const routeMeta: RouteMeta = getRouteMeta({
   `,
 })
 export default class HomePage {
+  readonly themeService = inject(ThemeService);
   courseCode = environment.courseCode;
   courseTitle = environment.courseTitle;
   semester = environment.semester;
