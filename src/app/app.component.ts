@@ -99,34 +99,34 @@ import { ThemeService } from "./services/theme.service";
           <span class="burger-line" [class.open]="menuOpen()"></span>
         </button>
       </div>
-    </nav>
 
-    <div class="mobile-menu noprint" [class.open]="menuOpen()">
-      <ul class="nav-links">
-        @for (item of navItems; track item.path) {
-          <li>
-            @if (item.path.startsWith("http")) {
-              <a
-                class="nav-link"
-                href="{{ item.path }}"
-                target="_blank"
-                (click)="menuOpen.set(false)"
-                >{{ item.name }}</a
-              >
-            } @else {
-              <a
-                class="nav-link"
-                [routerLink]="item.path"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
-                (click)="menuOpen.set(false)"
-                >{{ item.name }}</a
-              >
-            }
-          </li>
-        }
-      </ul>
-    </div>
+      <div class="mobile-menu" [class.open]="menuOpen()">
+        <ul class="nav-links">
+          @for (item of navItems; track item.path) {
+            <li>
+              @if (item.path.startsWith("http")) {
+                <a
+                  class="nav-link"
+                  href="{{ item.path }}"
+                  target="_blank"
+                  (click)="menuOpen.set(false)"
+                  >{{ item.name }}</a
+                >
+              } @else {
+                <a
+                  class="nav-link"
+                  [routerLink]="item.path"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+                  (click)="menuOpen.set(false)"
+                  >{{ item.name }}</a
+                >
+              }
+            </li>
+          }
+        </ul>
+      </div>
+    </nav>
 
     <main>
       <router-outlet />
@@ -155,14 +155,13 @@ import { ThemeService } from "./services/theme.service";
         z-index: 100;
         background: var(--bg);
         border-bottom: 1px solid var(--border);
-        height: var(--nav-height);
       }
 
       .nav-inner {
         max-width: 860px;
         margin: 0 auto;
         padding: 0 1.5rem;
-        height: 100%;
+        height: var(--nav-height);
         display: flex;
         align-items: center;
         gap: 2rem;
@@ -290,7 +289,6 @@ import { ThemeService } from "./services/theme.service";
       .mobile-menu {
         display: none;
         background: var(--surface);
-        border-bottom: 1px solid var(--border);
         padding: 0.75rem 1.5rem 1rem;
       }
 
