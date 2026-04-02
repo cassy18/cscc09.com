@@ -4,19 +4,19 @@ title: Course Outline
 
 # Course Objectives
 
-Web technologies dominate the tech scene - the big names like Amazon, Netflix, Google, etc... got its name through the browser. Most technology startups nowadays are also built on web technologies, too, as a result, Full Stack Software Developers are among the most sought out jobs in the industry. New frameworks, and new technologies come every day, making web development more and more accessible to a wider population.
+AI tools like Lovable and Claude have made it possible for anyone to vibecode a working web application in an afternoon. That's a genuine superpower - and we embrace it in this course. But vibecoding gets you a prototype, not a production system. When your app needs to handle thousands of users, stay secure against attackers, or survive a ["Reddit Hug of Death"](https://en.wikipedia.org/wiki/Slashdot_effect), you need to understand what's happening under the hood.
 
-Our goal in this course is to learn the fundamental concepts of web programming, such as the architectures, protocols, languages, and the design patterns. With this knowledge, you will be able to traverse through the most popular frameworks out there both in the frontend, and the backend. We will also learn how to maintain a large scale web application to fit with ever-growing internet population, and how to protect your web application against malicious actors, and even a ["Reddit Hug of Death"](https://en.wikipedia.org/wiki/Slashdot_effect).
+This course teaches the fundamentals of web programming - architectures, protocols, languages, and design patterns - so you can vibecode with confidence. You'll learn to direct AI tools effectively, evaluate and debug the code they generate, and make the architectural decisions that separate a demo from a product that scales.
 
 # Learning Outcomes
 
 Upon successful completion of this course, students will be able to:
 
-1. Write and debug javascript applications that manipulate the DOM
-2. Build a web application using a reactive frontend framework like Angular
-3. Use browser developer tools to analyse a debug a frontend web application
-4. Apply design patterns and principles to web applications
-5. Compare different frameworks from a software architecture point of view, highlighting similarities and differences
+1. Direct AI tools to generate frontend and backend code, and critically evaluate the output
+2. Build a scalable web application using a reactive frontend framework and a backend API
+3. Use browser developer tools to inspect, debug, and optimize a web application
+4. Apply design patterns and architectural principles to ensure maintainability and scalability
+5. Compare different frameworks and AI-generated approaches from a software architecture point of view, highlighting trade-offs
 6. Explain and use multiple models for communication between a web server and client
 
 # Prerequisites
@@ -55,9 +55,9 @@ One of the nice things about using Github for the course website is that you can
 
 - Slack (invitation link on Quercus)
 
-The slack #summer-2025 channel is the best place to ask technical questions, and general questions about the course, assignments and labs. You are advised to check this as frequently as possible. For personal issues, please private message the instructor. I try to respond by the end of the next day. However, due to volume, it may take longer, especially on weekends.
+The slack #summer-2026 channel is the best place to ask technical questions, and general questions about the course, assignments and labs. You are advised to check this as frequently as possible. For personal issues, please private message the instructor. I try to respond by the end of the next day. However, due to volume, it may take longer, especially on weekends.
 
-- [Anonymous Feedback Form](https://forms.gle/mpBh4MbNygwrAapr5)
+- [Anonymous Feedback Form](https://forms.gle/q9kfS57RhVbSYCXY6)
 
 If you have feedback about the course, you can send an anonymous feedback to the course instructor (you also have the option of including your name). Since the sender cannot be determined, comments sent through the feedback form are considered public, and they may receive a response at the beginning of class or on Slack.
 
