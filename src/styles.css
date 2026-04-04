@@ -203,6 +203,31 @@ pre code {
   color: inherit;
 }
 
+/* ── Mermaid diagrams ────────────────────────────────── */
+
+pre.mermaid {
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: center;
+}
+
+/* Force dark text so labels are always readable on the light
+   node/subgraph fills produced by Mermaid's default theme.
+   Labels inside <foreignObject> inherit the page color cascade
+   (white in dark mode) and must be reset explicitly. This
+   includes <p> elements nested inside .nodeLabel spans. */
+pre.mermaid svg .nodeLabel,
+pre.mermaid svg .nodeLabel p,
+pre.mermaid svg .edgeLabel,
+pre.mermaid svg .edgeLabel p,
+pre.mermaid svg .cluster-label,
+pre.mermaid svg .label,
+pre.mermaid svg text {
+  color: #333333 !important;
+  fill: #333333 !important;
+}
+
 /* ── Blockquote ─────────────────────────────────────── */
 
 blockquote {

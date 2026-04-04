@@ -16,6 +16,9 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(),
     provideClientHydration(),
-    provideContent(withMarkdownRenderer(), withPrismHighlighter()),
+    provideContent(
+      withMarkdownRenderer({ loadMermaid: () => import("mermaid") }),
+      withPrismHighlighter(),
+    ),
   ],
 };
