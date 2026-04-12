@@ -17,6 +17,7 @@
   },
   "resolutions": {
     "axios": "^1.13.5",
+    "eslint-visitor-keys": "4.2.1",
     "h3": "^1.15.5",
     "vite": "^6.4.1"
   },
