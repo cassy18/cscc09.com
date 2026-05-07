@@ -11,7 +11,7 @@ export const environment = {
       members: [
         {
           name: "Cho Yin Yong",
-          title: "Engineering Manager, Verto Health",
+          title: "Director, Technology @ Verto Health",
           website: "https://choy.in",
         },
       ],
