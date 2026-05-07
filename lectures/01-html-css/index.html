@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CSCC09 - My First Page</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <!-- It’s a joke -->
+    <div class="container">
+      <header class="hero">
+        <p class="eyebrow">HTML + CSS Kitchen Sink</p>
+        <h1 class="header header-demo">CSCC09 Kitchen Sink</h1>
+        <p id="exampleParagraph" class="lead">
+          A single page that shows common HTML elements and a few CSS ideas.
+        </p>
+        <p>
+          Visit the
+          <a href="https://cscc09.com">course website</a>
+          for schedules, handouts, and updates.
+        </p>
+      </header>
+
+      <main>
+        <section class="demo-section">
+          <h2 class="header">Text Elements</h2>
+          <h3 class="subheading">Headings and inline text</h3>
+          <p>
+            This paragraph includes <strong>strong text</strong>,
+            <em>emphasized text</em>, <mark>highlighted text</mark>, and
+            <code>inline code</code>.
+          </p>
+          <p>
+            You can also show abbreviations like
+            <abbr title="HyperText Markup Language">HTML</abbr> and short
+            keyboard hints with <kbd>Cmd</kbd> + <kbd>R</kbd>.
+          </p>
+          <blockquote>
+            Good markup gives structure before styling gives polish.
+          </blockquote>
+          <pre><code>&lt;button&gt;Click me&lt;/button&gt;</code></pre>
+        </section>
+
+        <section class="demo-section two-column-layout">
+          <div class="panel">
+            <h2 class="header">Lists</h2>
+            <h3 class="subheading">
+              Ordered, unordered, and description lists
+            </h3>
+            <ul>
+              <li>Semantic structure</li>
+              <li>Readable content</li>
+              <li>Reusable styles</li>
+            </ul>
+            <ol>
+              <li>Write the HTML.</li>
+              <li>Refresh the page.</li>
+              <li>Inspect the layout.</li>
+            </ol>
+            <dl>
+              <dt>Margin</dt>
+              <dd>Space outside the border.</dd>
+              <dt>Padding</dt>
+              <dd>Space between the content and the border.</dd>
+            </dl>
+          </div>
+
+          <div class="panel">
+            <h2 class="header">Media and Tables</h2>
+            <figure class="figure-card">
+              <div class="image-placeholder">240 x 120</div>
+              <figcaption>
+                A simple placeholder inside a figure element.
+              </figcaption>
+            </figure>
+
+            <table>
+              <caption>
+                Mini grade breakdown
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Item</th>
+                  <th scope="col">Weight</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Assignments</td>
+                  <td>40%</td>
+                </tr>
+                <tr>
+                  <td>Midterm</td>
+                  <td>20%</td>
+                </tr>
+                <tr>
+                  <td>Final</td>
+                  <td>40%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="demo-section">
+          <h2 class="header">Form Controls</h2>
+          <form class="sample-form">
+            <label>
+              Name
+              <input type="text" name="name" placeholder="Ada Lovelace" />
+            </label>
+            <label>
+              Favorite topic
+              <select name="topic">
+                <option>HTML</option>
+                <option>CSS</option>
+                <option>JavaScript</option>
+              </select>
+            </label>
+            <label>
+              Notes
+              <textarea
+                name="notes"
+                rows="4"
+                placeholder="Write a short message."
+              ></textarea>
+            </label>
+            <label class="checkbox-row">
+              <input type="checkbox" name="subscribe" checked />
+              Send me updates
+            </label>
+            <div class="button-row">
+              <button type="submit">Submit</button>
+              <button type="reset" class="button-secondary">Reset</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="demo-section">
+          <h2 class="header">Cascading Buttons</h2>
+          <p>
+            These buttons all match <code>.btn</code>, but the more specific
+            rules for <code>.btn.btn-primary</code> and
+            <code>.btn.btn-secondary</code>
+            override some of the base styles.
+          </p>
+          <pre><code>.btn {
+  background-color: white;
+  color: black;
+}
+
+.btn.btn-primary {
+  background-color: blue;
+  color: white;
+}
+
+.btn.btn-secondary {
+  background-color: lightgray;
+}</code></pre>
+          <div class="button-example-row">
+            <button type="button" class="btn">Default button</button>
+            <button type="button" class="btn btn-primary">
+              Primary button
+            </button>
+            <button type="button" class="btn btn-secondary">
+              Secondary button
+            </button>
+          </div>
+        </section>
+
+        <section class="demo-section">
+          <h2 class="header">CSS Box Model</h2>
+          <p class="section-note">
+            Each card below uses the same content width, but different padding,
+            border, and margin values.
+          </p>
+          <div class="box-model-grid">
+            <article class="box-card box-card-tight">
+              <h3 class="subheading">Tight Box</h3>
+              <p>Small padding and a thin border keep the content compact.</p>
+            </article>
+            <article class="box-card box-card-roomy">
+              <h3 class="subheading">Roomy Box</h3>
+              <p>
+                More padding adds interior space without changing the text
+                itself.
+              </p>
+            </article>
+            <article class="box-card box-card-offset">
+              <h3 class="subheading">Offset Box</h3>
+              <p>
+                Extra margin separates this card more aggressively from its
+                neighbors.
+              </p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

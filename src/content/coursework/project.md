@@ -4,6 +4,8 @@ releaseDate: 2026-05-21
 dueDate: 2026-06-05T16:00:00-04:00
 ---
 
+This is a WIP document - not ready for release.
+
 The project allows you to demonstrate that you have mastered full-stack development concepts learned from this course. As a team of 2-3, you will create a publicly available web application.
 
 ## Create the project team and project repository
@@ -56,8 +58,8 @@ Assign each team member to one of the specific capabilities below.
 | Real-time enablement            | 4%     | Using the correct technologies, enable real-time capabilities without browser reload on your web application. |
 | AI Integration with MCP / tools | 4%     | Develop complex AI workflows that interacts with external sources.                                            |
 | Stripe Integration              | 4%     | Set up a functional payment gateway for service subscriptions.                                                |
-| Deployment                      | 5%     | Successfully host the application on a live environment (e.g., Google Cloud).                                 |
-| Architecture                    | 5%     | Frontend and backend structure compliant with C09 standards                                                   |
+| Deployment Best Practices       | 5%     | Successfully host the application on DigitalOcean.                                                            |
+| Architecture Best Practices     | 5%     | Frontend and backend structure compliant with C09 standards                                                   |
 | Cool Factor                     | 5%     | Demonstration of creativity and novelty through project implementation.                                       |
 
 ## Authentication / Stripe Integration
@@ -77,26 +79,6 @@ Consider the following questions:
 - If the user cancels a subscription and tries to login, what happens?
 - If the user fails to pay for a subscription, what happens?
 - If the user tries to login without a subscription, what happens?
-
-## Addressing Feedback
-
-Before the Final Meeting, you must solicit feedback on your app using [givefeedback.dev](https://givefeedback.dev) and allow at least 2 students not in your group to give feedback. You must then address their feedback and be prepared to discuss your approach with the TA during the Final Meeting.
-
-## Practical Interviews
-
-During interviews at each step, a team member who did not implement the feature must be present during their assigned practical to answer questions regarding it, to demonstrate that they have the knowledge if they had to implement the feature. There is a 1-5% penalty for each capability for any team member who cannot satisfactorily explain the feature they are interviewed for.
-
-### Alpha Meeting (10 mins)
-
-Presentation: Authentication, Look and Feel
-
-### Beta Meeting (10 mins)
-
-Real-time enablement, Multi-step AI Integration, Stripe Integration
-
-### Final Meeting (10 mins)
-
-Deployment, Architecture, Cool Factor, Addressing Feedback
 
 ## Proposal (5%) - GitHub
 
@@ -141,3 +123,23 @@ You have the freedom to build whatever you want as a project, however the follow
 - During the duration of the project, you must not be concurrently paid to do the same project for another entity.
 
 Each team member will be held accountable for the work they submit to the team’s GitHub repository.
+
+## Addressing Feedback
+
+Before the Final Meeting, you must solicit feedback on your app using [givefeedback.dev](https://givefeedback.dev) and allow at least 2 students not in your group to give feedback. You must then address their feedback and be prepared to discuss your approach with the TA during the Final Meeting.
+
+## Practical Interviews
+
+During interviews at each step, a team member who did not implement the feature must be present during their assigned practical to answer questions regarding it, to demonstrate that they have the knowledge if they had to implement the feature. There is a 1-5% penalty for each capability for any team member who cannot satisfactorily explain the feature they are interviewed for.
+
+### Alpha Meeting (10 mins)
+
+Presentation: Authentication, Look and Feel
+
+### Beta Meeting (10 mins)
+
+Real-time enablement, Multi-step AI Integration, Stripe Integration
+
+### Final Meeting (10 mins)
+
+Deployment, Architecture, Cool Factor, Addressing Feedback

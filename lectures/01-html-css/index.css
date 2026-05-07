@@ -1,0 +1,125 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.header {
+  margin-bottom: 8px;
+}
+
+.demo-section {
+  margin: 24px 0;
+  padding: 16px;
+  border: 1px solid #ccc;
+}
+
+.two-column-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.panel {
+  flex: 1 1 280px;
+}
+
+blockquote,
+pre,
+table,
+form {
+  margin-top: 12px;
+}
+
+th,
+td,
+input,
+select,
+textarea,
+button {
+  border: 1px solid #999;
+}
+
+th,
+td,
+input,
+select,
+textarea,
+button {
+  padding: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sample-form label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.checkbox-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+}
+
+.button-example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn {
+  background-color: white;
+  color: black;
+}
+
+.btn.btn-primary {
+  background-color: blue;
+  color: white;
+}
+
+.btn.btn-secondary {
+  background-color: lightgray;
+}
+
+.box-model-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box-card {
+  width: 220px;
+  background: #f4f4f4;
+}
+
+.box-card-tight {
+  margin: 8px;
+  padding: 8px;
+  border: 2px solid #444;
+}
+
+.box-card-roomy {
+  margin: 8px;
+  padding: 24px;
+  border: 6px solid #666;
+}
+
+.box-card-offset {
+  margin: 24px 8px 8px;
+  padding: 16px;
+  border: 4px dashed #666;
+}
