@@ -1,6 +1,6 @@
 ---
 title: Group Project
-releaseDate: 2026-05-21
+releaseDate: 2026-05-30
 dueDate: 2026-06-05T16:00:00-04:00
 ---
 
