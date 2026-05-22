@@ -94,7 +94,7 @@
       .querySelector(".edit-chirp-form")
       .addEventListener("submit", function (e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.currentTarget);
         const formProps = Object.fromEntries(formData);
 
         ChirpService.editChirp(chirp.id, formProps.chirp).then(() => {
@@ -144,7 +144,7 @@
           noChirps.classList.add("hidden");
         }
       }
-    }, [chirpsLoading]);
+    }, [chirpsLoading, chirps]);
 
     const newChirpInput = document.querySelector("#newChirp #newChirpInput");
     const submitChirpButton = document.querySelector("#submitChirp");
@@ -164,20 +164,21 @@
       .querySelector("#newChirp")
       .addEventListener("submit", function (e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.currentTarget);
         const formProps = Object.fromEntries(formData);
-        if (formProps.content.length === 0) {
+        const chirpContent = (formProps.chirp || "").trim();
+        if (chirpContent.length === 0) {
           return;
         }
         document.querySelector("#submitChirp").disabled = true;
-        ChirpService.addChirp(formData).then((result) => {
+        ChirpService.addChirp(chirpContent).then((result) => {
           const existingChirps = getChirps();
           existingChirps.unshift(result);
           setChirps(existingChirps);
           document.querySelector("#submitChirp").disabled = false;
         });
 
-        e.target.reset();
+        e.currentTarget.reset();
       });
   });
 })();

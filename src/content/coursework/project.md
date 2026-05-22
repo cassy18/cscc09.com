@@ -1,10 +1,8 @@
 ---
 title: Group Project
-releaseDate: 2026-05-30
-dueDate: 2026-06-05T16:00:00-04:00
+releaseDate: 2026-05-28T19:00:00-04:00
+dueDate: 2026-07-23T16:00:00-04:00
 ---
-
-This is a WIP document - not ready for release.
 
 The project allows you to demonstrate that you have mastered full-stack development concepts learned from this course. As a team of 2-3, you will create a publicly available web application.
 
@@ -12,7 +10,7 @@ The project allows you to demonstrate that you have mastered full-stack developm
 
 Before creating a team, brainstorm with your team about the project you want to build. Your team name should be the same as your project name. It is your responsibility to have frequent meetings with your team to discuss and work on the project together, ideally, in person.
 
-Click here to create or join a Github Classroom Team: [link tbd]
+Click [here](https://classroom.github.com/a/sjGoTOz-) to create or join a Github Classroom Team
 
 One team member should create the team, others should join the team.
 
@@ -49,18 +47,17 @@ Notes on the diagram above:
 
 ## Capabilities
 
-Assign each team member to one of the specific capabilities below.
+Assign each team member to the specific capabilities below equally.
 
 | Capability                      | Weight | Description                                                                                                   |
 | ------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------- |
-| Authentication                  | 4%     | Implement secure user login and registration with OAuth 2 only                                                |
-| Look and Feel                   | 4%     | Refine the UI/UX for a professional and intuitive user experience. Serves as the mockup step                  |
-| Real-time enablement            | 4%     | Using the correct technologies, enable real-time capabilities without browser reload on your web application. |
-| AI Integration with MCP / tools | 4%     | Develop complex AI workflows that interacts with external sources.                                            |
-| Stripe Integration              | 4%     | Set up a functional payment gateway for service subscriptions.                                                |
+| Authentication                  | 5%     | Implement secure user login and registration with OAuth 2 only                                                |
+| Look and Feel                   | 5%     | Refine the UI/UX for a professional and intuitive user experience. Serves as the mockup step                  |
+| Real-time enablement            | 5%     | Using the correct technologies, enable real-time capabilities without browser reload on your web application. |
+| AI Integration with MCP / tools | 5%     | Develop complex AI workflows that interacts with external sources.                                            |
+| Stripe Integration              | 5%     | Set up a functional payment gateway for service subscriptions.                                                |
 | Deployment Best Practices       | 5%     | Successfully host the application on DigitalOcean.                                                            |
 | Architecture Best Practices     | 5%     | Frontend and backend structure compliant with C09 standards                                                   |
-| Cool Factor                     | 5%     | Demonstration of creativity and novelty through project implementation.                                       |
 
 ## Authentication / Stripe Integration
 
@@ -109,7 +106,7 @@ Once approved by the instructor, write your proposal in `README.md` at the root 
 
 ## AI Usage
 
-Please review carefully the syllabus on approved AI usage. All rules apply.
+Please review carefully the syllabus on approved AI usage. All rules apply. To clarify, you must only use approved models and store all chat histories in the repo. It is recommended that you keep it in a subdirectory to keep the repo clean.
 
 ## Academic Integrity
 
@@ -130,7 +127,7 @@ Before the Final Meeting, you must solicit feedback on your app using [givefeedb
 
 ## Practical Interviews
 
-During interviews at each step, a team member who did not implement the feature must be present during their assigned practical to answer questions regarding it, to demonstrate that they have the knowledge if they had to implement the feature. There is a 1-5% penalty for each capability for any team member who cannot satisfactorily explain the feature they are interviewed for.
+During interviews at each step, a team member who did not implement the feature must be present during their assigned practical to answer questions regarding it, to demonstrate that they have the knowledge if they had to implement the feature. There is a 1-5% penalty for each capability for the team member who cannot satisfactorily explain the feature they are interviewed for.
 
 ### Alpha Meeting (10 mins)
 

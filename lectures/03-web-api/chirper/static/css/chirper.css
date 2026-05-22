@@ -50,7 +50,8 @@
   margin-bottom: 1em;
 }
 
-.chirps-placeholder {
+.chirps-placeholder,
+.no-chirps {
   margin-top: 30px;
   text-align: center;
 }
