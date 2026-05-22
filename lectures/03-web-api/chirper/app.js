@@ -8,6 +8,10 @@ app.use(bodyParser.json());
 
 app.use(express.static("static"));
 
+app.get("/api-docs", function (req, res) {
+  return res.redirect("/openapi.html");
+});
+
 // this is a middleware function that logs the incoming request
 app.use(function (req, res, next) {
   console.log("HTTP request", req.method, req.url, req.body);
