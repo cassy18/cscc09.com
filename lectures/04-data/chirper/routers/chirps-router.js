@@ -18,22 +18,41 @@ chirpsRouter.post("/", upload.single("image"), async (req, res, next) => {
   ];
   if (!validateInput(req, res, schema)) return;
 
+  const content = req.body.content.trim();
+  if (content.length === 0) {
+    return res
+      .status(422)
+      .json({ error: "Invalid input parameters. Expected non-empty content" });
+  }
+
+  let parentChirpId = null;
+  if (
+    req.body.ChirpId !== undefined &&
+    req.body.ChirpId !== null &&
+    req.body.ChirpId !== ""
+  ) {
+    parentChirpId = Number.parseInt(req.body.ChirpId, 10);
+    if (!Number.isInteger(parentChirpId) || parentChirpId <= 0) {
+      return res.status(422).json({ error: "Invalid parent chirp id" });
+    }
+
+    const parentChirp = await Chirp.findByPk(parentChirpId);
+    if (!parentChirp) {
+      return res.status(422).json({ error: "Invalid parent chirp id" });
+    }
+  }
+
   try {
     // INSERT INTO chirps (content, imageMetadata, ChirpId) VALUES (req.body.content, req.file, req.body.ChirpId)
     const chirp = await Chirp.create({
-      content: req.body.content,
+      content,
       imageMetadata: req.file,
-      ChirpId: req.body.ChirpId,
+      ChirpId: parentChirpId,
     });
     return res.json(chirp);
   } catch (e) {
     if (e.name === "SequelizeForeignKeyConstraintError") {
       return res.status(422).json({ error: "Invalid parent chirp id" });
-    } else if (e.name === "SequelizeValidationError") {
-      return res.status(422).json({
-        error:
-          "Invalid input parameters. Expected content, file and (optional) ChirpId",
-      });
     } else {
       return res.status(400).json({ error: "Cannot create chirp" });
     }
@@ -79,8 +98,13 @@ chirpsRouter.get("/:id/image", async (req, res, next) => {
       .status(404)
       .json({ error: `Chirp(id=${req.params.id}) has no image.` });
   }
-  res.setHeader("Content-Type", chirp.imageMetadata.mimetype);
-  res.sendFile(chirp.imageMetadata.path, { root: path.resolve() });
+  console.log(chirp.imageMetadata);
+  return res.sendFile(chirp.imageMetadata.path, {
+    root: path.resolve(),
+    headers: {
+      "Content-Type": chirp.imageMetadata.mimetype,
+    },
+  });
 });
 
 chirpsRouter.patch("/:id", async (req, res, next) => {
