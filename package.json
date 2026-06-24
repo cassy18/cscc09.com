@@ -19,7 +19,7 @@
     "axios": "^1.13.5",
     "eslint-visitor-keys": "4.2.1",
     "h3": "^1.15.5",
-    "vite": "^6.4.2"
+    "vite": "^6.4.3"
   },
   "simple-git-hooks": {
     "pre-commit": "yarn pretty-quick --staged"
@@ -28,13 +28,13 @@
     "@analogjs/content": "^2.3.1",
     "@analogjs/router": "^2.3.1",
     "@angular/animations": "^21.2.5",
-    "@angular/common": "^21.2.5",
-    "@angular/compiler": "^21.2.5",
-    "@angular/core": "^21.2.5",
+    "@angular/common": "^21.2.17",
+    "@angular/compiler": "^21.2.17",
+    "@angular/core": "^21.2.17",
     "@angular/forms": "^21.2.5",
     "@angular/platform-browser": "^21.2.5",
     "@angular/platform-browser-dynamic": "^21.2.5",
-    "@angular/platform-server": "^21.2.13",
+    "@angular/platform-server": "^21.2.16",
     "@angular/router": "^21.2.5",
     "@angular/ssr": "^21.2.9",
     "@nx/angular": "^22.6.0",
@@ -64,7 +64,7 @@
     "pretty-quick": "^4.1.1",
     "simple-git-hooks": "^2.13.1",
     "typescript": "~5.9.3",
-    "vite": "^6.4.2",
+    "vite": "^6.4.3",
     "vitest": "^4.1.0"
   }
 }
